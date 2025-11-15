@@ -9,6 +9,9 @@ on:
     types: [ created ]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     name: Build Windows
@@ -48,12 +51,9 @@ jobs:
 
       - name: Upload Release Asset
         if: github.event_name == 'release'
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: softprops/action-gh-release@v2
         with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: dist/scalibr.dll
-          asset_name: scalibr-windows-amd64.dll
-          asset_content_type: application/octet-stream
+          files: dist/scalibr.dll
+          token: ${{ secrets.GITHUB_TOKEN }}
+
 
