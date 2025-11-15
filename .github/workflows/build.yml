@@ -33,8 +33,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Clone osv-scalibr v0.3.6
-        run: git clone --depth 1 --branch v0.3.6 https://github.com/google/osv-scalibr.git osv-scalibr
+      - name: Clone osv-scalibr (latest)
+        run: |
+          git clone --depth 1 https://github.com/google/osv-scalibr.git osv-scalibr
+          cd osv-scalibr && go mod tidy
 
       - name: Set up Go
         uses: actions/setup-go@v5

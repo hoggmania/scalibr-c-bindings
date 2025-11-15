@@ -21,28 +21,13 @@ This standalone project provides a C-compatible API layer on top of the Go-based
   - Linux: GCC
   - macOS: Xcode Command Line Tools
   - Windows: MinGW-w64 (install with `choco install mingw`)
-- **osv-scalibr source**: Download and extract v0.3.6
+- **Git** (for cloning osv-scalibr dependency)
 
-### Setting up osv-scalibr dependency
-
-Clone the osv-scalibr v0.3.6 source code:
-
-**All platforms:**
-```bash
-git clone --depth 1 --branch v0.3.6 https://github.com/google/osv-scalibr.git osv-scalibr
-```
-
-Alternatively, create a symbolic link to an existing osv-scalibr clone:
-```bash
-ln -s ../osv-scalibr osv-scalibr  # Linux/macOS
-```
-```powershell
-New-Item -ItemType SymbolicLink -Path .\osv-scalibr -Target ..\osv-scalibr  # Windows
-```
-
-**Note:** The build scripts will automatically clone osv-scalibr v0.3.6 if the directory doesn't exist.
+**That's it!** The build scripts automatically handle all dependencies including cloning and configuring osv-scalibr.
 
 ## Building
+
+The build process is fully automated - just run the appropriate build script for your platform.
 
 ### Linux/macOS
 
@@ -59,6 +44,17 @@ This creates `dist/libscalibr.so` (Linux) or `dist/libscalibr.dylib` (macOS).
 ```
 
 This creates `dist\scalibr.dll`.
+
+### What the Build Scripts Do
+
+The build scripts automatically:
+1. Check for required compilers (GCC/MinGW)
+2. Clone osv-scalibr if not already present
+3. Fix osv-scalibr dependencies with `go mod tidy`
+4. Download Go dependencies
+5. Build the C-compatible shared library
+
+No manual dependency setup required!
 
 ## API Reference
 

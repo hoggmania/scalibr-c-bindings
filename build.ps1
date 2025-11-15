@@ -38,19 +38,32 @@ Write-Host "Found GCC: $($gccPath.Source)" -ForegroundColor Green
 # Navigate to the script directory
 Set-Location $PSScriptRoot
 
-# Download osv-scalibr dependency if not present
+# Clone osv-scalibr if not present (required for build)
 if (-not (Test-Path "osv-scalibr")) {
-    Write-Host "Cloning osv-scalibr v0.3.6..." -ForegroundColor Yellow
-    git clone --depth 1 --branch v0.3.6 https://github.com/google/osv-scalibr.git osv-scalibr
+    Write-Host "Cloning osv-scalibr (latest)..." -ForegroundColor Yellow
+    git clone --depth 1 https://github.com/google/osv-scalibr.git osv-scalibr
     if ($LASTEXITCODE -ne 0) {
-        Write-Host "Failed to clone osv-scalibr. Please clone manually or create a symlink." -ForegroundColor Red
+        Write-Host "Failed to clone osv-scalibr" -ForegroundColor Red
+        Write-Host "You can also create a symlink: New-Item -ItemType SymbolicLink -Path .\osv-scalibr -Target <path>" -ForegroundColor Yellow
         exit 1
     }
-    Write-Host "osv-scalibr cloned successfully" -ForegroundColor Green
-    Write-Host "Downloading Go dependencies..." -ForegroundColor Yellow
-    go mod download
+    Write-Host "Successfully cloned osv-scalibr" -ForegroundColor Green
+    
+    # Fix osv-scalibr dependencies
+    Write-Host "Fixing osv-scalibr dependencies..." -ForegroundColor Yellow
+    Push-Location osv-scalibr
+    go mod tidy
+    Pop-Location
 } else {
-    Write-Host "osv-scalibr already present" -ForegroundColor Green
+    Write-Host "osv-scalibr directory found" -ForegroundColor Green
+}
+
+# Download Go dependencies
+Write-Host "Downloading Go dependencies..." -ForegroundColor Yellow
+go mod download
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "Failed to download Go dependencies" -ForegroundColor Red
+    exit 1
 }
 
 # Create output directory

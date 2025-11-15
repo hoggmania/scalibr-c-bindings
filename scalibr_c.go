@@ -44,7 +44,6 @@ import (
 	"unsafe"
 
 	scalibr "github.com/google/osv-scalibr"
-	cpb "github.com/google/osv-scalibr/binary/proto/config_go_proto"
 	scalibrfs "github.com/google/osv-scalibr/fs"
 	"github.com/google/osv-scalibr/log"
 	"github.com/google/osv-scalibr/plugin"
@@ -130,7 +129,7 @@ func ScalibrScan(config *C.ScanConfig) *C.ScanResult {
 	}
 
 	// Get plugins
-	plugins, err := pl.FromNames(pluginNames, &cpb.PluginConfig{})
+	plugins, err := pl.FromNames(pluginNames, nil)
 	if err != nil {
 		result.error_message = C.CString(fmt.Sprintf("failed to load plugins: %v", err))
 		result.status_code = 2
