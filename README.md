@@ -25,20 +25,11 @@ This standalone project provides a C-compatible API layer on top of the Go-based
 
 ### Setting up osv-scalibr dependency
 
-Download and extract the osv-scalibr source code:
+Clone the osv-scalibr v0.3.6 source code:
 
-**Linux/macOS:**
+**All platforms:**
 ```bash
-curl -L -o osv-scalibr.zip https://github.com/google/osv-scalibr/archive/refs/tags/v0.3.6.zip
-unzip osv-scalibr.zip
-mv osv-scalibr-0.3.6 osv-scalibr
-```
-
-**Windows (PowerShell):**
-```powershell
-Invoke-WebRequest -Uri https://github.com/google/osv-scalibr/archive/refs/tags/v0.3.6.zip -OutFile osv-scalibr.zip
-Expand-Archive -Path osv-scalibr.zip -DestinationPath .
-Rename-Item -Path osv-scalibr-0.3.6 -NewName osv-scalibr
+git clone --depth 1 --branch v0.3.6 https://github.com/google/osv-scalibr.git osv-scalibr
 ```
 
 Alternatively, create a symbolic link to an existing osv-scalibr clone:
@@ -48,6 +39,8 @@ ln -s ../osv-scalibr osv-scalibr  # Linux/macOS
 ```powershell
 New-Item -ItemType SymbolicLink -Path .\osv-scalibr -Target ..\osv-scalibr  # Windows
 ```
+
+**Note:** The build scripts will automatically clone osv-scalibr v0.3.6 if the directory doesn't exist.
 
 ## Building
 

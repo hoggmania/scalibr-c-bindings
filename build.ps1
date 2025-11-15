@@ -38,6 +38,21 @@ Write-Host "Found GCC: $($gccPath.Source)" -ForegroundColor Green
 # Navigate to the script directory
 Set-Location $PSScriptRoot
 
+# Download osv-scalibr dependency if not present
+if (-not (Test-Path "osv-scalibr")) {
+    Write-Host "Cloning osv-scalibr v0.3.6..." -ForegroundColor Yellow
+    git clone --depth 1 --branch v0.3.6 https://github.com/google/osv-scalibr.git osv-scalibr
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "Failed to clone osv-scalibr. Please clone manually or create a symlink." -ForegroundColor Red
+        exit 1
+    }
+    Write-Host "osv-scalibr cloned successfully" -ForegroundColor Green
+    Write-Host "Downloading Go dependencies..." -ForegroundColor Yellow
+    go mod download
+} else {
+    Write-Host "osv-scalibr already present" -ForegroundColor Green
+}
+
 # Create output directory
 Write-Host "Creating output directory..." -ForegroundColor Yellow
 New-Item -ItemType Directory -Force -Path "dist" | Out-Null

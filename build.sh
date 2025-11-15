@@ -34,6 +34,21 @@ echo "Library: $LIBRARY_NAME"
 # Navigate to the script directory
 cd "$(dirname "$0")"
 
+# Download osv-scalibr dependency if not present
+if [ ! -d "osv-scalibr" ]; then
+    echo "Cloning osv-scalibr v0.3.6..."
+    git clone --depth 1 --branch v0.3.6 https://github.com/google/osv-scalibr.git osv-scalibr
+    if [ $? -ne 0 ]; then
+        echo "Failed to clone osv-scalibr. Please clone manually or create a symlink."
+        exit 1
+    fi
+    echo "osv-scalibr cloned successfully"
+    echo "Downloading Go dependencies..."
+    go mod download
+else
+    echo "osv-scalibr already present"
+fi
+
 # Create output directory
 mkdir -p dist
 

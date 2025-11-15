@@ -33,12 +33,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Download osv-scalibr v0.3.6
-        run: |
-          curl -L -o osv-scalibr.zip https://github.com/google/osv-scalibr/archive/refs/tags/v0.3.6.zip
-          unzip -q osv-scalibr.zip
-          mv osv-scalibr-0.3.6 osv-scalibr
-        shell: bash
+      - name: Clone osv-scalibr v0.3.6
+        run: git clone --depth 1 --branch v0.3.6 https://github.com/google/osv-scalibr.git osv-scalibr
 
       - name: Set up Go
         uses: actions/setup-go@v5
