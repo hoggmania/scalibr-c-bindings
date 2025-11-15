@@ -13,7 +13,7 @@ permissions:
   contents: write
 
 jobs:
-  build:
+  build-windows:
     name: Build Windows
     runs-on: windows-latest
 
@@ -54,6 +54,51 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: dist/scalibr.dll
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  build-linux:
+    name: Build Linux
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.23'
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc
+
+      - name: Clone osv-scalibr (latest)
+        run: |
+          git clone --depth 1 https://github.com/google/osv-scalibr.git osv-scalibr
+          cd osv-scalibr && go mod tidy
+
+      - name: Download Go dependencies
+        run: go mod download
+
+      - name: Build Linux shared library
+        run: |
+          chmod +x build.sh
+          ./build.sh
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: scalibr-linux-amd64.so
+          path: dist/scalibr.so
+          if-no-files-found: error
+
+      - name: Upload Release Asset
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/scalibr.so
           token: ${{ secrets.GITHUB_TOKEN }}
 
 
