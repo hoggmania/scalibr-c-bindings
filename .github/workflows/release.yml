@@ -54,10 +54,7 @@ jobs:
       - name: Clone osv-scalibr (latest)
         run: |
           git clone --depth 1 https://github.com/google/osv-scalibr.git osv-scalibr
-          cd osv-scalibr && go mod tidy
-
-      - name: Fix containerd compatibility
-        run: |
+          cd osv-scalibr
           go get -u github.com/containerd/containerd@latest
           go mod tidy
 
