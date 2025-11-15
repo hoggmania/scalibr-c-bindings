@@ -55,7 +55,7 @@ jobs:
         run: |
           git clone --depth 1 https://github.com/google/osv-scalibr.git osv-scalibr
           cd osv-scalibr
-          go get -u github.com/containerd/containerd@latest
+          go get -u github.com/containerd/containerd@main
           go mod tidy
 
       - name: Download Go dependencies
