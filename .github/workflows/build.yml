@@ -46,6 +46,12 @@ jobs:
       - name: Download Go dependencies
         run: go mod download
 
+
+      - name: Build (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          .\build.ps1
+          
       - name: Install GCC (Ubuntu)
         if: runner.os == 'Linux'
         run: |
@@ -67,11 +73,6 @@ jobs:
         run: |
           chmod +x build.sh
           ./build.sh
-
-      - name: Build (Windows)
-        if: runner.os == 'Windows'
-        run: |
-          .\build.ps1
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
