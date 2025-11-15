@@ -11,23 +11,8 @@ on:
 
 jobs:
   build:
-    name: Build ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        include:
-          - os: ubuntu-latest
-            artifact_name: libscalibr.so
-            asset_name: libscalibr-linux-amd64.so
-          - os: macos-latest
-            artifact_name: libscalibr.dylib
-            asset_name: libscalibr-darwin-amd64.dylib
-          - os: macos-14  # Apple Silicon
-            artifact_name: libscalibr.dylib
-            asset_name: libscalibr-darwin-arm64.dylib
-          - os: windows-latest
-            artifact_name: scalibr.dll
-            asset_name: scalibr-windows-amd64.dll
+    name: Build Windows
+    runs-on: windows-latest
 
     steps:
       - name: Checkout code
@@ -46,39 +31,19 @@ jobs:
       - name: Download Go dependencies
         run: go mod download
 
-
-      - name: Build (Windows)
-        if: runner.os == 'Windows'
-        run: |
-          .\build.ps1
-          
-      - name: Install GCC (Ubuntu)
-        if: runner.os == 'Linux'
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y gcc
-
-      - name: Install GCC (macOS)
-        if: runner.os == 'macOS'
-        run: |
-          brew install gcc
-
-      - name: Install MinGW (Windows)
-        if: runner.os == 'Windows'
+      - name: Install MinGW
         run: |
           choco install mingw -y
 
-      - name: Build (Unix)
-        if: runner.os != 'Windows'
+      - name: Build Windows DLL
         run: |
-          chmod +x build.sh
-          ./build.sh
+          .\build.ps1
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.asset_name }}
-          path: dist/${{ matrix.artifact_name }}
+          name: scalibr-windows-amd64.dll
+          path: dist/scalibr.dll
           if-no-files-found: error
 
       - name: Upload Release Asset
@@ -88,33 +53,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: dist/${{ matrix.artifact_name }}
-          asset_name: ${{ matrix.asset_name }}
+          asset_path: dist/scalibr.dll
+          asset_name: scalibr-windows-amd64.dll
           asset_content_type: application/octet-stream
 
-  test:
-    name: Test Build Success
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download all artifacts
-        uses: actions/download-artifact@v4
-
-      - name: List artifacts
-        run: |
-          echo "Built artifacts:"
-          ls -lR
-
-      - name: Verify artifacts
-        run: |
-          for file in libscalibr-linux-amd64.so/libscalibr.so \
-                      libscalibr-darwin-amd64.dylib/libscalibr.dylib \
-                      libscalibr-darwin-arm64.dylib/libscalibr.dylib \
-                      scalibr-windows-amd64.dll/scalibr.dll; do
-            if [ -f "$file" ]; then
-              echo "✓ $file exists ($(du -h "$file" | cut -f1))"
-            else
-              echo "✗ $file missing"
-              exit 1
-            fi
-          done
