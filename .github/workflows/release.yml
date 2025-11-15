@@ -46,11 +46,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Checkout osv-scalibr
-        uses: actions/checkout@v4
-        with:
-          repository: google/osv-scalibr
-          path: osv-scalibr
+      - name: Download osv-scalibr v0.3.6
+        run: |
+          curl -L -o osv-scalibr.zip https://github.com/google/osv-scalibr/archive/refs/tags/v0.3.6.zip
+          unzip -q osv-scalibr.zip
+          mv osv-scalibr-0.3.6 osv-scalibr
+        shell: bash
 
       - name: Set up Go
         uses: actions/setup-go@v5

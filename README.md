@@ -21,6 +21,33 @@ This standalone project provides a C-compatible API layer on top of the Go-based
   - Linux: GCC
   - macOS: Xcode Command Line Tools
   - Windows: MinGW-w64 (install with `choco install mingw`)
+- **osv-scalibr source**: Download and extract v0.3.6
+
+### Setting up osv-scalibr dependency
+
+Download and extract the osv-scalibr source code:
+
+**Linux/macOS:**
+```bash
+curl -L -o osv-scalibr.zip https://github.com/google/osv-scalibr/archive/refs/tags/v0.3.6.zip
+unzip osv-scalibr.zip
+mv osv-scalibr-0.3.6 osv-scalibr
+```
+
+**Windows (PowerShell):**
+```powershell
+Invoke-WebRequest -Uri https://github.com/google/osv-scalibr/archive/refs/tags/v0.3.6.zip -OutFile osv-scalibr.zip
+Expand-Archive -Path osv-scalibr.zip -DestinationPath .
+Rename-Item -Path osv-scalibr-0.3.6 -NewName osv-scalibr
+```
+
+Alternatively, create a symbolic link to an existing osv-scalibr clone:
+```bash
+ln -s ../osv-scalibr osv-scalibr  # Linux/macOS
+```
+```powershell
+New-Item -ItemType SymbolicLink -Path .\osv-scalibr -Target ..\osv-scalibr  # Windows
+```
 
 ## Building
 
