@@ -50,7 +50,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: google/osv-scalibr
-          path: ../osv-scalibr
+          path: osv-scalibr
 
       - name: Set up Go
         uses: actions/setup-go@v5

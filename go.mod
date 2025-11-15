@@ -159,4 +159,4 @@ require (
 )
 
 
-replace github.com/google/osv-scalibr => ../osv-scalibr
+replace github.com/google/osv-scalibr => ./osv-scalibr
