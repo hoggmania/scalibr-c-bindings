@@ -1,0 +1,23 @@
+# Ignore build outputs
+dist/
+*.dll
+*.so
+*.dylib
+*.h
+
+# Go build artifacts
+*.exe
+*.test
+*.out
+go.sum
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
