@@ -2,12 +2,7 @@ module github.com/google/scalibr-c-bindings
 
 go 1.25.4
 
-require (
-	deps.dev/util/semver v0.0.0-20251104021112-20ad94767ddf
-	github.com/google/go-cmp v0.7.0
-	github.com/google/go-cpy v0.0.0-20211218193943-a9c933c06932
-	github.com/google/osv-scalibr v0.3.6
-)
+require github.com/google/osv-scalibr v0.3.6
 
 require (
 	cloud.google.com/go/compute/metadata v0.9.0 // indirect
@@ -17,6 +12,7 @@ require (
 	deps.dev/util/maven v0.0.0-20251104021112-20ad94767ddf // indirect
 	deps.dev/util/pypi v0.0.0-20251104021112-20ad94767ddf // indirect
 	deps.dev/util/resolve v0.0.0-20251104021112-20ad94767ddf // indirect
+	deps.dev/util/semver v0.0.0-20251104021112-20ad94767ddf // indirect
 	github.com/AdaLogics/go-fuzz-headers v0.0.0-20240806141605-e8a1dd7889d6 // indirect
 	github.com/AdamKorcz/go-118-fuzz-build v0.0.0-20250520111509-a70c2aa677fa // indirect
 	github.com/BurntSushi/toml v1.5.0 // indirect
@@ -72,6 +68,7 @@ require (
 	github.com/gobwas/glob v0.2.3 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang/groupcache v0.0.0-20241129210726-2c02b8208cf8 // indirect
+	github.com/google/go-cmp v0.7.0 // indirect
 	github.com/google/go-containerregistry v0.20.6 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99 // indirect
@@ -129,7 +126,6 @@ require (
 	go.opentelemetry.io/otel v1.38.0 // indirect
 	go.opentelemetry.io/otel/metric v1.38.0 // indirect
 	go.opentelemetry.io/otel/trace v1.38.0 // indirect
-	go.uber.org/atomic v1.11.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.27.0 // indirect
 	go.yaml.in/yaml/v2 v2.4.3 // indirect
@@ -144,8 +140,6 @@ require (
 	golang.org/x/telemetry v0.0.0-20251112162317-03ef243c208a // indirect
 	golang.org/x/text v0.31.0 // indirect
 	golang.org/x/tools v0.39.0 // indirect
-	golang.org/x/tools/go/expect v0.1.1-deprecated // indirect
-	golang.org/x/tools/go/packages/packagestest v0.1.1-deprecated // indirect
 	golang.org/x/vuln v1.1.4 // indirect
 	golang.org/x/xerrors v0.0.0-20240903120638-7835f813f4da // indirect
 	google.golang.org/genproto v0.0.0-20251111163417-95abcf5c77ba // indirect

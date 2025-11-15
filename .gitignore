@@ -9,7 +9,6 @@ dist/
 *.exe
 *.test
 *.out
-go.sum
 
 # Local osv-scalibr symlink (use ../osv-scalibr or clone it)
 osv-scalibr/
